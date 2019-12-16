@@ -32,8 +32,6 @@ void PrintHelp()
 
 int main (int argc, char** argv)
 {
-    std::cout << "App Started " << argc << std::endl;
-
     if (argc < 2 || 4 < argc)
     {
         PrintHelp();
@@ -41,11 +39,7 @@ int main (int argc, char** argv)
     }
     else
     {
-        std::cout << "Launching Soft" << std::endl;
         LaunchSoft(argc, argv);
         /* code */
     }
-    
-    std::cout << "\nLooking for Leaks" << std::endl;
-    system("leaks ut_create_cpp_class");
 }
