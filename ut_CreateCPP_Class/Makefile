@@ -1,12 +1,13 @@
 
-NAME = testy
+NAME = ut_create_cpp_class
 
 SRC_DIR :=	./src/
 OBJ_DIR :=	./obj/
 INC_DIR :=	./inc/
 # LIB_DIR :=	./Library/
 
-SRC = 	main.cpp
+SRC = 	main.cpp	\
+		CreateCppFile.cpp
 		
 
 #	project object files
@@ -22,7 +23,7 @@ all:
 # compiles .c files
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) -o $(NAME) $(INCLUDES) #-g -fsanitize=address
-	@ echo "\n===> doom-nukem compiled\n"
+	@ echo "\n===> $(NAME) compiled\n"
 
 #compiles .o files
 $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp

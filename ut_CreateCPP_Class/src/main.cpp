@@ -1,53 +1,51 @@
-#include <iostream>
-#include <string>
-#include <vector>
-
-typedef std::vector<std::string> str_vec_t;
-
-
-void ConvertArgv(int argc, char** argv)
-{
-    str_vec_t result;
-
-    for (int i = 0; i < argc; i++)
-    {
-        result.push_back(argv[i]);
-        std::cout << result[i] << std::endl;
-    }
-}
+#include <main.hpp>
 
 
 void LaunchSoft(int argc, char** argv)
 {
-    // Convert argv to string[]
-    ConvertArgv(argc, argv);
-    // Parse
-    // 
+    std::string className = argv[1];
+
+    std::string cppFileContent = CreateCppFile::BuildCppFileInsides(className);
+    std::string hppFileContent = CreateCppFile::BuildHppFileInsides(className);
+    
+    std::string hppLocation = "";
+    if (argc >= 3)
+    {
+        hppLocation = argv[2];
+        hppLocation += "/";
+    }
+    std::string cppLocation = "";
+    if (argc >= 4)
+    {
+        cppLocation = argv[3];
+        cppLocation += "/";
+    }
+    CreateCppFile::CreateWriteFile(hppLocation, className + ".hpp", hppFileContent);
+    CreateCppFile::CreateWriteFile(cppLocation, className + ".cpp", cppFileContent);
 }
 
 void PrintHelp()
 {
     // Print the Legend Here how to use this programm
-    std::cout << "usage: here" << std::endl;
-
+    std::cout << "usage: ut_create_cpp_class [class_name] [path_where_place_hpp] [path_where_place_cpp]" << std::endl;
 }
 
 int main (int argc, char** argv)
 {
-    std::cout << "Hello there" << std::endl;
-    // (void)argv;
+    std::cout << "App Started " << argc << std::endl;
 
-    if (argc == 1)
+    if (argc < 2 || 4 < argc)
     {
         PrintHelp();
         return 0;
     }
     else
     {
-
+        std::cout << "Launching Soft" << std::endl;
         LaunchSoft(argc, argv);
         /* code */
     }
     
-    std::cout << "Hello there" << std::endl;
+    std::cout << "\nLooking for Leaks" << std::endl;
+    system("leaks ut_create_cpp_class");
 }
